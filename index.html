@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#dce8ef">
+  <meta name="description" content="DIARY BY MAIZA — A little space for all my feelings.">
+  <title>DIARY BY MAIZA — My Personal Diary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="paper-grain"></div>
+  <div class="petal petal-one">✿</div><div class="petal petal-two">✧</div><div class="petal petal-three">❀</div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" data-page="home"><span class="brand-flower">✿</span><span>DIARY <i>BY</i> MAIZA<small>A little space for all my feelings.</small></span></a>
+      <div class="side-label">MY LITTLE WORLD</div>
+      <nav class="nav-list">
+        <button class="nav-link active" data-page="home"><i data-lucide="house"></i> Home</button>
+        <button class="nav-link" data-page="diary"><i data-lucide="book-heart"></i> My Diary</button>
+        <button class="nav-link" data-page="write"><i data-lucide="pen-line"></i> Write Diary <span class="nav-plus">+</span></button>
+        <button class="nav-link" data-page="calendar"><i data-lucide="calendar-days"></i> Calendar</button>
+        <button class="nav-link" data-page="feelings"><i data-lucide="heart"></i> My Feelings</button>
+        <button class="nav-link" data-page="quotes"><i data-lucide="quote"></i> Quotes</button>
+      </nav>
+      <div class="sidebar-note"><span>“</span><p>Collect moments,<br>not things.</p><small>— little reminder</small></div>
+      <button class="nav-link settings-link" data-page="settings"><i data-lucide="settings-2"></i> Settings</button>
+      <div class="side-footer">MADE WITH ♡ FOR MYSELF</div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu icon-btn" id="mobileMenu" aria-label="Open menu"><i data-lucide="menu"></i></button>
+        <div class="breadcrumb">MY JOURNAL <span>/</span> <b id="crumb">HOME</b></div>
+        <div class="top-actions"><span class="live-clock" id="clock">00:00</span><button class="icon-btn" id="themeToggle" title="Toggle dark mode"><i data-lucide="moon"></i></button><button class="avatar" id="avatarBtn" title="Profile">M</button></div>
+      </header>
+      <div class="content" id="content">
+        <section class="page active" id="page-home">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <div class="eyebrow"><span>✧</span> YOUR PRIVATE LITTLE CORNER</div>
+              <h1 id="greeting">Good evening,<br><em>Maiza.</em></h1>
+              <p class="hero-sub">Welcome to my little world.</p>
+              <p class="hero-date" id="todayDate"></p>
+              <button class="primary-btn" data-page="write"><i data-lucide="feather"></i> Write Today's Diary</button>
+            </div>
+            <div class="hero-art"><div class="art-circle"></div><div class="flower-art">❀</div><div class="butterfly">୨୧</div><div class="stamp"><small>POST</small><b>♡</b><small>MEMORIES</small></div><div class="tape"></div></div>
+            <div class="hero-caption">little things, lovely days</div>
+          </div>
+          <div class="section-heading"><div><span class="eyebrow">A SOFT PLACE TO LAND</span><h2>Your little overview</h2></div><span class="hand-note">take it one day at a time ♡</span></div>
+          <div class="stats-grid">
+            <article class="stat-card"><span class="stat-icon blue">✎</span><div><small>DIARY ENTRIES</small><strong id="entryCount">0</strong><p>little stories saved</p></div></article>
+            <article class="stat-card"><span class="stat-icon pink">♡</span><div><small>TODAY'S MOOD</small><strong id="todayMood">—</strong><p id="todayMoodText">check in with yourself</p></div></article>
+            <article class="stat-card"><span class="stat-icon sage">✿</span><div><small>WRITING STREAK</small><strong id="streakCount">0 days</strong><p>keep your memories close</p></div></article>
+          </div>
+          <div class="home-lower">
+            <article class="paper-card calendar-mini"><div class="card-heading"><div><span class="eyebrow">A GLANCE AT TIME</span><h3 id="miniMonth">This month</h3></div><button class="text-btn" data-page="calendar">View calendar →</button></div><div class="mini-grid" id="miniCalendar"></div></article>
+            <article class="quote-card"><span class="quote-mark">“</span><p id="homeQuote">There is beauty in becoming.</p><small>YOUR DAILY LITTLE REMINDER</small><button class="refresh-quote" id="refreshHomeQuote" aria-label="New quote">↻</button></article>
+          </div>
+        </section>
+
+        <section class="page" id="page-write">
+          <div class="page-intro"><span class="eyebrow">A PAGE JUST FOR YOU</span><h1 id="formTitle">Dear Diary<span class="title-flower"> ✿</span></h1><p>Take a breath. There's no right or wrong way to write.</p></div>
+          <form id="diaryForm" class="journal-book">
+            <div class="book-left">
+              <div class="book-top"><span class="tiny-label">TODAY'S LITTLE MOMENTS</span><span class="page-number">01</span></div>
+              <label class="field-label" for="entryDate">DATE</label><input id="entryDate" type="date" required>
+              <div class="date-display" id="dateDisplay">A new page begins...</div>
+              <div class="field-group"><label class="field-label">HOW IS YOUR HEART TODAY?</label><div class="mood-picker" id="moodPicker">
+                <button type="button" class="mood-option" data-mood="Bahagia"><span>😊</span>Bahagia</button>
+                <button type="button" class="mood-option" data-mood="Tenang"><span>😌</span>Tenang</button>
+                <button type="button" class="mood-option" data-mood="Sedih"><span>😔</span>Sedih</button>
+                <button type="button" class="mood-option" data-mood="Marah"><span>😡</span>Marah</button>
+                <button type="button" class="mood-option" data-mood="Cemas"><span>😰</span>Cemas</button>
+                <button type="button" class="mood-option" data-mood="Bersyukur"><span>🥰</span>Bersyukur</button>
+                <button type="button" class="mood-option" data-mood="Lelah"><span>😴</span>Lelah</button>
+                <button type="button" class="mood-option" data-mood="Biasa saja"><span>😐</span>Biasa saja</button>
+              </div><input type="hidden" id="entryMood"></div>
+              <div class="field-group"><label class="field-label" for="story">TODAY'S STORY</label><textarea id="story" rows="7" placeholder="Dear diary, today..."></textarea></div>
+              <div class="book-footer"><span>✿ take your time</span><span>02</span></div>
+            </div>
+            <div class="book-right">
+              <div class="book-top"><span class="tiny-label">A FEW MORE THOUGHTS</span><span class="stamp-mini">MAIZA'S<br>POST</span></div>
+              <div class="field-group"><label class="field-label" for="challenges">THE HARD PARTS</label><textarea id="challenges" rows="3" placeholder="What felt difficult today?"></textarea></div>
+              <div class="field-group"><label class="field-label" for="solutions">WHAT I LEARNED</label><textarea id="solutions" rows="3" placeholder="How did I handle it?"></textarea></div>
+              <div class="field-group"><label class="field-label" for="gratitude">LITTLE THINGS I'M GRATEFUL FOR</label><textarea id="gratitude" rows="3" placeholder="Today, I am thankful for..."></textarea></div>
+              <div class="field-group"><label class="field-label" for="message">A NOTE TO MYSELF</label><textarea id="message" rows="3" placeholder="Dear me, remember that..."></textarea></div>
+              <div class="save-row"><span class="handwriting">Made with love, for myself.</span><button class="primary-btn" type="submit"><i data-lucide="bookmark-check"></i> Save Diary</button></div>
+              <div class="book-footer"><span id="saveStatus">your words matter ♡</span><span>03</span></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="page" id="page-diary">
+          <div class="page-intro"><span class="eyebrow">MEMORIES, PRESERVED</span><h1>My Diary <span class="title-flower">✿</span></h1><p>Every page holds a little piece of your story.</p></div>
+          <div class="toolbar"><label class="search-box"><i data-lucide="search"></i><input id="searchDiary" placeholder="Search your memories..."></label><select id="filterMood"><option value="">All moods</option><option>Bahagia</option><option>Tenang</option><option>Sedih</option><option>Marah</option><option>Cemas</option><option>Bersyukur</option><option>Lelah</option><option>Biasa saja</option></select><select id="sortDiary"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div>
+          <div id="diaryList" class="diary-grid"></div>
+        </section>
+
+        <section class="page" id="page-calendar">
+          <div class="page-intro"><span class="eyebrow">MEMORIES THROUGH TIME</span><h1>Memory Calendar <span class="title-flower">✿</span></h1><p>Little dots of days you made your own.</p></div>
+          <article class="paper-card full-calendar"><div class="calendar-head"><button class="icon-btn" id="prevMonth"><i data-lucide="chevron-left"></i></button><h2 id="calendarTitle">Month 2026</h2><button class="icon-btn" id="nextMonth"><i data-lucide="chevron-right"></i></button></div><div class="calendar-grid" id="calendarGrid"></div><div class="calendar-legend"><span><i></i> diary saved</span><span>Tap a date to read or write</span></div></article>
+        </section>
+
+        <section class="page" id="page-feelings">
+          <div class="page-intro"><span class="eyebrow">A GENTLE CHECK-IN</span><h1>My Feelings <span class="title-flower">♡</span></h1><p>All feelings are welcome here. Notice them without judgement.</p></div>
+          <div class="stats-grid feelings-stats"><article class="stat-card"><span class="stat-icon blue">♡</span><div><small>ENTRIES THIS MONTH</small><strong id="monthCount">0</strong><p>pages written</p></div></article><article class="stat-card"><span class="stat-icon pink">✿</span><div><small>MOST COMMON MOOD</small><strong id="topMood">—</strong><p>your frequent visitor</p></div></article><article class="stat-card"><span class="stat-icon sage">☼</span><div><small>MOOD CHECK-INS</small><strong id="moodCount">0</strong><p>moments noticed</p></div></article></div>
+          <div class="analytics-grid"><article class="paper-card"><span class="eyebrow">YOUR MOOD MIX</span><h3>Feelings at a glance</h3><div id="moodBars" class="mood-bars"></div></article><article class="paper-card"><span class="eyebrow">THIS WEEK</span><h3>Your writing rhythm</h3><div id="weekChart" class="week-chart"></div></article></div>
+          <p class="gentle-note">A reminder: your mood is a visitor, not your identity. ♡</p>
+        </section>
+
+        <section class="page" id="page-quotes">
+          <div class="page-intro"><span class="eyebrow">WORDS TO KEEP CLOSE</span><h1>Little Inspirations <span class="title-flower">✧</span></h1><p>A small collection of gentle reminders for your day.</p></div>
+          <div class="quote-tabs" id="quoteTabs"><button class="selected" data-category="All">All</button><button data-category="Self Love">Self Love</button><button data-category="Motivation">Motivation</button><button data-category="Healing">Healing</button><button data-category="Happiness">Happiness</button><button data-category="Life">Life</button><button data-category="Gratitude">Gratitude</button></div>
+          <div class="inspiration-card"><div class="quote-flower">❀</div><span class="eyebrow" id="quoteCategory">A LITTLE REMINDER</span><p id="bigQuote">You are allowed to grow at your own pace.</p><small>— A NOTE FOR YOUR HEART —</small><div class="quote-actions"><button class="secondary-btn" id="newQuote"><i data-lucide="refresh-cw"></i> Another quote</button><button class="secondary-btn" id="copyQuote"><i data-lucide="copy"></i> Copy quote</button></div></div>
+        </section>
+
+        <section class="page" id="page-settings">
+          <div class="page-intro"><span class="eyebrow">MAKE THIS SPACE YOURS</span><h1>Little Settings <span class="title-flower">✿</span></h1><p>Personalise your journal, just the way you like it.</p></div>
+          <div class="settings-grid">
+            <article class="paper-card"><span class="eyebrow">YOUR PROFILE</span><h3>A little about you</h3><label class="field-label" for="profileName">DISPLAY NAME</label><input class="setting-input" id="profileName" value="Maiza"><button class="primary-btn small-btn" id="saveProfile">Save profile</button></article>
+            <article class="paper-card"><span class="eyebrow">AESTHETIC CORNER</span><h3>Choose your theme</h3><div class="theme-options"><button data-theme="blue" class="theme-swatch chosen"><i></i>Vintage Blue Floral</button><button data-theme="sage" class="theme-swatch"><i></i>Sage Garden</button><button data-theme="pink" class="theme-swatch"><i></i>Pink Blossom</button><button data-theme="vanilla" class="theme-swatch"><i></i>Vanilla Cream</button></div></article>
+            <article class="paper-card"><span class="eyebrow">YOUR DATA</span><h3>Keep your memories safe</h3><p class="settings-help">Local mode stores entries in this browser. Export a backup regularly. Connect Supabase below for private online sync.</p><div class="data-actions"><button class="secondary-btn" id="exportBackup">↓ Backup JSON</button><label class="secondary-btn upload-label">↑ Restore JSON<input type="file" id="restoreBackup" accept="application/json"></label><button class="secondary-btn" id="exportPdf">Print / Save PDF</button></div></article>
+            <article class="paper-card"><span class="eyebrow">ONLINE SYNC (OPTIONAL)</span><h3>Connect your private cloud</h3><p class="settings-help">Create a Supabase project, then enter its Project URL and anon key. Never use a service-role key here.</p><label class="field-label" for="supabaseUrl">SUPABASE PROJECT URL</label><input class="setting-input" id="supabaseUrl" placeholder="https://your-project.supabase.co"><label class="field-label" for="supabaseKey">SUPABASE ANON / PUBLISHABLE KEY</label><input class="setting-input" id="supabaseKey" placeholder="Public anon key"><div class="data-actions"><button class="primary-btn small-btn" id="connectCloud">Connect</button><button class="secondary-btn" id="cloudSignOut">Sign out</button></div><p class="cloud-status" id="cloudStatus">Local-only mode · cloud not configured</p><div id="authPanel" class="auth-panel"><label class="field-label" for="authEmail">EMAIL</label><input class="setting-input" id="authEmail" type="email" placeholder="you@example.com"><label class="field-label" for="authPassword">PASSWORD</label><input class="setting-input" id="authPassword" type="password" placeholder="At least 6 characters"><div class="data-actions"><button class="secondary-btn" id="signIn">Log in</button><button class="secondary-btn" id="signUp">Create account</button></div></div></article>
+          </div>
+          <div class="footer-note">DIARY BY MAIZA · A LITTLE SPACE FOR ALL MY FEELINGS.</div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+  <div class="modal-backdrop" id="modal"><div class="modal-card"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+  <script src="script.js"></script>
+</body>
+</html>
